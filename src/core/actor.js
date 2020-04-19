@@ -11,5 +11,10 @@ export function hookup(name, actorInstance) {
 }
 
 export function lookup(name) {
-  return new BroadcastChannel(name);
+  const channel = new BroadcastChannel(name);
+  return {
+    send (subject, msg) {
+      channel.postMessage({subject, msg});
+    }
+  };
 }
